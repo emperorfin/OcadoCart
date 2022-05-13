@@ -7,6 +7,4 @@ package emperorfin.android.ocadocart.domain.uilayer.events.inputs.productovervie
  */
 
 
-interface ProductOverviewEntityParams : ProductOverviewDataTransferObjectParams {
-    val tag: String
-}
+interface ProductOverviewEntityParams : ProductOverviewDataTransferObjectParams

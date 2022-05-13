@@ -8,5 +8,5 @@ package emperorfin.android.ocadocart.domain.uilayer.events.inputs.productovervie
 
 
 interface ProductOverviewUiModelParams : ProductOverviewModelParams {
-    val priceWithUnit: String
+    val priceWithUnit: String?
 }

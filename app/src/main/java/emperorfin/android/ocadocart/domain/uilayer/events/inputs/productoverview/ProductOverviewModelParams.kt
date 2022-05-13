@@ -7,5 +7,4 @@ package emperorfin.android.ocadocart.domain.uilayer.events.inputs.productovervie
  */
 
 
-interface ProductOverviewModelParams : ProductOverviewEntityParams {
-}
+interface ProductOverviewModelParams : ProductOverviewEntityParams

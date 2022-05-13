@@ -13,4 +13,5 @@ interface ProductOverviewDataTransferObjectParams : Params {
     val size: String?
     val price: String?
     val imageUrl: String?
+    val tag: String?
 }

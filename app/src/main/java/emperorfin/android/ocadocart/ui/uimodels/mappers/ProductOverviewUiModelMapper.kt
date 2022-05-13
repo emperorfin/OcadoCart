@@ -1,5 +1,8 @@
 package emperorfin.android.ocadocart.ui.uimodels.mappers
 
+import emperorfin.android.ocadocart.domain.models.ProductOverviewModel
+import emperorfin.android.ocadocart.ui.uimodels.ProductOverviewUiModel
+
 
 /**
  * @Author: Francis Nwokelo (emperorfin)
@@ -8,4 +11,8 @@ package emperorfin.android.ocadocart.ui.uimodels.mappers
 
 
 class ProductOverviewUiModelMapper {
+
+    fun transform(domainModelProductOverview: ProductOverviewModel): ProductOverviewUiModel =
+        ProductOverviewUiModel.newInstance(domainModelProductOverview)
+
 }
