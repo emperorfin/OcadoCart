@@ -1,5 +1,6 @@
 package emperorfin.android.ocadocart.ui.uimodels
 
+import emperorfin.android.ocadocart.domain.models.ProductDetailsModel
 import emperorfin.android.ocadocart.domain.uilayer.events.inputs.productdetails.ProductDetailsUiModelParams
 
 
@@ -24,6 +25,44 @@ data class ProductDetailsUiModel(
 
         const val UNDEFINED: String = "undefined"
 
+        fun newInstance(domainModelProductDetails: ProductDetailsModel): ProductDetailsUiModel {
+            val id: Int = domainModelProductDetails.id
+            val title: String = domainModelProductDetails.title
+            val price: String = domainModelProductDetails.price
+            val imageUrl: String = domainModelProductDetails.imageUrl
+            val description: String = domainModelProductDetails.description
+            val allergyInformation: String = domainModelProductDetails.allergyInformation
+
+            return ProductDetailsUiModel(
+                id = id,
+                title = title,
+                price = price,
+                imageUrl = imageUrl,
+                description = description,
+                allergyInformation = allergyInformation
+            )
+        }
+
+        fun newInstance(
+            id: Int,
+            title: String,
+            price: String,
+            imageUrl: String,
+            description: String,
+            allergyInformation: String
+        ): ProductDetailsUiModel {
+
+            return ProductDetailsUiModel(
+                id = id,
+                title = title,
+                price = price,
+                imageUrl = imageUrl,
+                description = description,
+                allergyInformation = allergyInformation
+            )
+        }
+
     }
 
 }
+
