@@ -7,4 +7,9 @@ package emperorfin.android.ocadocart.ui.screens.productsoverview.enums
  */
 
 
-enum class ProductsOverviewRequestStatus
+enum class ProductsOverviewRequestStatus {
+    LOADING,
+    ERROR,
+    DONE,
+    NO_DATA
+}
