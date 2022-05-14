@@ -1,113 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ll_product_card"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="1dp"
-    android:background="@color/white"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="productOverviewUiModel"
+            type="emperorfin.android.ocadocart.ui.uimodels.ProductOverviewUiModel" />
+
+        <variable
+            name="clickListener"
+            type="emperorfin.android.ocadocart.ui.screens.productsoverview.adapters.ProductOverviewUiModelRecyclerviewAdapter.OnClickListener" />
+    </data>
 
     <LinearLayout
+        android:id="@+id/ll_product_card"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_85dp"
-        android:orientation="horizontal"
-        android:padding="@dimen/_5dp">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:onClick="@{() -> clickListener.onProductOverviewClick(productOverviewUiModel)}">
 
-        <RelativeLayout
-            android:layout_width="@dimen/_0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_85dp"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5dp">
 
-            <ImageView
-                android:id="@+id/im_product_img"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="@dimen/_0dp"
                 android:layout_height="match_parent"
-                tools:src="@drawable/icon_list_item_placeholder"/>
+                android:layout_weight="4">
 
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/im_product_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:srcCompat="@tools:sample/avatars"
+                    app:bindProductOverviewImageUrl="@{productOverviewUiModel.imageUrl}" />
 
-        <RelativeLayout
-            android:id="@+id/rl_product_detail"
-            android:layout_width="@dimen/_0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/_5dp"
-            android:layout_weight="7"
-            android:orientation="vertical">
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/tv_product_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:focusable="false"
-                android:freezesText="true"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                tools:text="Ocado Organic Fairtrade Bananas"
-                android:textColor="@android:color/background_dark"
-                android:textSize="@dimen/_15sp"/>
-
-            <TextView
-                android:id="@+id/tv_size"
-                android:layout_width="@dimen/_120dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_product_name"
-                android:ellipsize="marquee"
-                android:focusable="false"
-                android:freezesText="true"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                tools:text="6 per pack"
-                android:textColor="@android:color/holo_blue_dark"
-                android:textSize="@dimen/_15sp"/>
-
-            <LinearLayout
-                android:id="@+id/size"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:id="@+id/rl_product_detail"
+                android:layout_width="@dimen/_0dp"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/tv_product_name"
-                android:layout_gravity="end"
-                android:layout_marginLeft="@dimen/_50dp"
-                android:layout_toRightOf="@+id/tv_product_price"
-                android:background="#fff"
-                android:gravity="end"
-                android:orientation="horizontal">
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/_5dp"
+                android:layout_weight="7"
+                android:orientation="vertical">
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_product_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="false"
+                    android:freezesText="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    tools:text="Ocado Organic Fairtrade Bananas"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="@dimen/_15sp"
+                    android:text="@{productOverviewUiModel.title}"/>
 
-            <TextView
-                android:id="@+id/tv_product_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/_10dp"
-                android:ellipsize="marquee"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:freezesText="true"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                tools:textColor="@android:color/background_dark"
-                android:textSize="@dimen/_14sp"
-                android:textStyle="bold"
-                android:layout_marginEnd="@dimen/_16dp"
-                android:layout_marginRight="@dimen/_16dp"
-                tools:text="$1.45"
-                />
+                <TextView
+                    android:id="@+id/tv_size"
+                    android:layout_width="@dimen/_120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_product_name"
+                    android:ellipsize="marquee"
+                    android:focusable="false"
+                    android:freezesText="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    tools:text="6 per pack"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textSize="@dimen/_15sp"
+                    android:text="@{productOverviewUiModel.size}"/>
 
-        </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/layout_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/tv_product_name"
+                    android:layout_gravity="end"
+                    android:layout_marginLeft="@dimen/_50dp"
+                    android:layout_toRightOf="@+id/tv_product_price"
+                    android:background="#fff"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_product_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:freezesText="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    tools:textColor="@android:color/background_dark"
+                    android:textSize="@dimen/_14sp"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="@dimen/_16dp"
+                    android:layout_marginRight="@dimen/_16dp"
+                    tools:text="$1.45"
+                    android:text="@{productOverviewUiModel.priceWithUnit}"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1dp"
+            android:background="@drawable/background" />
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1dp"
-        android:background="@drawable/background" />
-
-</LinearLayout>
+</layout>

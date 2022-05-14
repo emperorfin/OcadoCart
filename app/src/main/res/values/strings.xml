@@ -5,4 +5,9 @@
     <string name="message_no_product_results">No product results to display.</string>
     <string name="product_price">Price:</string>
     <string name="product_size">Size:</string>
+    <string name="error_either_width_or_height_must_not_be_null">Either icon\'s width or height cannot be null. It\'s either both the width and height are null or both aren\'t.</string>
+    <string name="loading">Loading…</string>
+    <string name="products_overviews_results_error">Error displaying products overview results.</string>
+    <string name="products_overviews_results_no_data">No products overview results to display.</string>
+
 </resources>
