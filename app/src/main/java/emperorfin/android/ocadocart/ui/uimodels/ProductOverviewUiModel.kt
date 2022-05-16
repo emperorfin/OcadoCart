@@ -1,7 +1,9 @@
 package emperorfin.android.ocadocart.ui.uimodels
 
+import android.os.Parcelable
 import emperorfin.android.ocadocart.domain.models.ProductOverviewModel
 import emperorfin.android.ocadocart.domain.uilayer.events.inputs.productoverview.ProductOverviewUiModelParams
+import kotlinx.android.parcel.Parcelize
 
 
 /**
@@ -10,6 +12,7 @@ import emperorfin.android.ocadocart.domain.uilayer.events.inputs.productoverview
  */
 
 
+@Parcelize
 data class ProductOverviewUiModel(
     override val id: Int,
     override val title: String,
@@ -18,7 +21,7 @@ data class ProductOverviewUiModel(
     override val imageUrl: String,
     override val tag: String,
     override val priceWithUnit: String = "$$price"
-) : ProductOverviewUiModelParams {
+) : ProductOverviewUiModelParams, Parcelable {
 
     companion object {
 

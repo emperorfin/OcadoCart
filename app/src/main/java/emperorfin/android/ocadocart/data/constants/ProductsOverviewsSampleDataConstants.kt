@@ -9,7 +9,7 @@ package emperorfin.android.ocadocart.data.constants
 
 object ProductsOverviewsSampleDataConstants {
 
-    const val ID_1: Int = 386138011
+    const val ID_1: Int = 309396011
     const val ID_2: Int = 227255011
     const val ID_3: Int = 386138011
     const val ID_4: Int = 407680011

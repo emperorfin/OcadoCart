@@ -18,7 +18,8 @@ data class ProductDetailsUiModel(
     override val description: String,
     override val allergyInformation: String,
     override val size: String = UNDEFINED,
-    override val tag: String = UNDEFINED
+    override val tag: String = UNDEFINED,
+    override val priceWithUnit: String = "$$price"
 ) : ProductDetailsUiModelParams {
 
     companion object {

@@ -9,11 +9,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import emperorfin.android.ocadocart.R
 import emperorfin.android.ocadocart.databinding.FragmentProductsOverviewBinding
+import emperorfin.android.ocadocart.ui.events.outputs.EventDataImpl
 import emperorfin.android.ocadocart.ui.screens.productsoverview.adapters.ProductOverviewUiModelRecyclerviewAdapter
 import emperorfin.android.ocadocart.ui.screens.productsoverview.viewmodels.ProductsOverviewViewModel
 import emperorfin.android.ocadocart.ui.screens.productsoverview.viewmodels.ProductsOverviewViewModelFactory
+import emperorfin.android.ocadocart.ui.uimodels.ProductOverviewUiModel
 import java.util.*
 
 /**
@@ -52,12 +55,16 @@ class ProductsOverviewFragment : Fragment() {
         binding.viewModel = mViewModel
 
         val productOverviewAdapterOnClickListener = ProductOverviewUiModelRecyclerviewAdapter.OnClickListener{
-            showToastMessage(
-                "Product Name: \"${it.title.toUpperCase(Locale.ROOT)}\""
-            )
+//            showToastMessage(
+//                "Product Name: \"${it.title.toUpperCase(Locale.ROOT)}\""
+//            )
+
+            mViewModel.openProductDetails(it)
         }
 
         setupProductsOverviewAdapter(binding, productOverviewAdapterOnClickListener)
+
+        setupNavigation()
 
         return binding.root
     }
@@ -74,6 +81,21 @@ class ProductsOverviewFragment : Fragment() {
     ){
         binding.rvProductsOverviews.adapter =
             ProductOverviewUiModelRecyclerviewAdapter(productOverviewAdapterOnClickListener)
+    }
+
+    private fun setupNavigation(){
+        mViewModel.openProductDetailsEvent.observe(viewLifecycleOwner, EventDataImpl.EventDataImplObserver{
+            openProductDetails(it)
+        })
+    }
+
+    private fun openProductDetails(productOverview: ProductOverviewUiModel){
+        val action =
+            ProductsOverviewFragmentDirections
+                .actionProductsOverviewFragmentToProductDetailsFragment(productOverview)
+
+        this.findNavController().navigate(action)
+
     }
 
     private fun showToastMessage(message: String) =

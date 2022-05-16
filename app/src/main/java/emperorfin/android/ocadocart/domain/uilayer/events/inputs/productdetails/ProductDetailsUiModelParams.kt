@@ -11,5 +11,6 @@ interface ProductDetailsUiModelParams : ProductDetailsModelParams {
 
     val size: String?
     val tag: String?
+    val priceWithUnit: String?
 
 }

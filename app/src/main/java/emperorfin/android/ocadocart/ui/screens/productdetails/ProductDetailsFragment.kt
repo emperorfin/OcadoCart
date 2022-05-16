@@ -1,11 +1,17 @@
 package emperorfin.android.ocadocart.ui.screens.productdetails
 
+import android.app.Application
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import emperorfin.android.ocadocart.R
+import emperorfin.android.ocadocart.databinding.FragmentProductDetailsBinding
+import emperorfin.android.ocadocart.ui.screens.productdetails.viewmodels.ProductDetailsViewModel
+import emperorfin.android.ocadocart.ui.screens.productdetails.viewmodels.ProductDetailsViewModelFactory
+import emperorfin.android.ocadocart.ui.uimodels.ProductOverviewUiModel
 
 /**
  * A simple [Fragment] subclass.
@@ -20,11 +26,28 @@ class ProductDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_product_details, container, false)
+
+        val selectedProductOverview =
+            ProductDetailsFragmentArgs.fromBundle(requireArguments()).selectedProductOverview
+
+        val binding: FragmentProductDetailsBinding = FragmentProductDetailsBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+
+        val application = requireNotNull(activity).application
+
+        val viewModel = getProductDetailsViewModel(application, selectedProductOverview)
+
+        binding.viewModel = viewModel
+
+        return binding.root
     }
 
-    companion object {
+    private fun getProductDetailsViewModel(
+        application: Application, selectedProductOverview: ProductOverviewUiModel
+    ): ProductDetailsViewModel {
+        val viewModelFactory = ProductDetailsViewModelFactory(application, selectedProductOverview)
 
+        return ViewModelProvider(this, viewModelFactory).get(ProductDetailsViewModel::class.java)
     }
+
 }

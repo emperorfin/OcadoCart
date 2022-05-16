@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import emperorfin.android.ocadocart.ui.events.outputs.EventDataImpl
 import emperorfin.android.ocadocart.ui.screens.productsoverview.enums.ProductsOverviewRequestStatus
 import emperorfin.android.ocadocart.ui.uimodels.ProductOverviewUiModel
 import emperorfin.android.ocadocart.ui.utils.ProductsOverviewsSampleDataGeneratorUtil
@@ -34,10 +35,19 @@ class ProductsOverviewViewModel(
     val productsOverviews: LiveData<List<ProductOverviewUiModel>>
         get() = _productsOverviews
 
+    private val _openProductDetailsEvent = MutableLiveData<EventDataImpl<ProductOverviewUiModel>>()
+
+    val openProductDetailsEvent: LiveData<EventDataImpl<ProductOverviewUiModel>>
+        get() = _openProductDetailsEvent
+
     // DO NOT REMOVE.
     init{
         // Option 1 of 4 (SAMPLE DATA)
         generateProductsOverviewsSampleData()
+    }
+
+    fun openProductDetails(productOverview: ProductOverviewUiModel){
+        _openProductDetailsEvent.value = EventDataImpl(productOverview)
     }
 
     private fun generateProductsOverviewsSampleData() = viewModelScope.launch {

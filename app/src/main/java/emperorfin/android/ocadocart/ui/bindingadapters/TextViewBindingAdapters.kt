@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import emperorfin.android.ocadocart.R
+import emperorfin.android.ocadocart.ui.screens.productsoverview.enums.ProductDetailsRequestStatus
 import emperorfin.android.ocadocart.ui.screens.productsoverview.enums.ProductsOverviewRequestStatus
 
 
@@ -31,6 +32,29 @@ fun setProductsOverviewsRequestStatusText(textView: TextView, requestStatus: Pro
                 textView.text = textView.context.getString(R.string.products_overviews_results_no_data)
             }
             ProductsOverviewRequestStatus.DONE -> {
+                textView.visibility = View.GONE
+            }
+        }
+    }
+}
+
+@BindingAdapter("bindProductDetailsRequestStatusText")
+fun setProductDetailsRequestStatusText(textView: TextView, requestStatus: ProductDetailsRequestStatus?){
+    requestStatus?.let {
+        when(it){
+            ProductDetailsRequestStatus.LOADING -> {
+                textView.visibility = View.VISIBLE
+                textView.text = textView.context.getString(R.string.loading)
+            }
+            ProductDetailsRequestStatus.ERROR -> {
+                textView.visibility = View.VISIBLE
+                textView.text = textView.context.getString(R.string.products_overviews_results_error)
+            }
+            ProductDetailsRequestStatus.NO_DATA -> {
+                textView.visibility = View.VISIBLE
+                textView.text = textView.context.getString(R.string.products_overviews_results_no_data)
+            }
+            ProductDetailsRequestStatus.DONE -> {
                 textView.visibility = View.GONE
             }
         }

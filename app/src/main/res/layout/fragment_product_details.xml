@@ -1,94 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".ui.screens.productdetails.ProductDetailsFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ScrollView
-        android:id="@+id/product_page"
+    <data>
+        <import type="emperorfin.android.ocadocart.ui.screens.productdetails.viewmodels.ProductDetailsViewModel" />
+
+        <variable
+            name="viewModel"
+            type="emperorfin.android.ocadocart.ui.screens.productdetails.viewmodels.ProductDetailsViewModel" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:visibility="visible">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.screens.productdetails.ProductDetailsFragment">
 
-        <RelativeLayout
+        <ScrollView
+            android:id="@+id/product_page"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:visibility="visible"
+            app:bindProductDetailsRequestStatusScrollView="@{viewModel.requestStatus}">
 
-            <LinearLayout
-                android:id="@+id/name"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:padding="@dimen/_16dp">
-
-                <TextView
-                    android:id="@+id/tv_product_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="false"
-                    android:textColor="@color/blue_grey"
-                    android:textSize="@dimen/_20sp"
-                    android:textStyle="bold"
-                    tools:text="Ocado Organic Fairtrade Bananas" />
-
-                <TextView
-                    android:id="@+id/tv_product_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2dp"
-                    android:singleLine="false"
-                    android:textColor="@color/blue_grey"
-                    android:textSize="@dimen/_13sp"
-                    tools:text="Organic. Suitable for vegetarians." />
-
-                <TextView
-                    android:id="@+id/tv_product_allergy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2dp"
-                    android:singleLine="false"
-                    android:textColor="@color/blue_grey"
-                    android:textSize="@dimen/_13sp"
-                    tools:text="May contain traces of Sesame Seeds."
-                    android:textStyle="italic"/>
-
-            </LinearLayout>
-
-            <FrameLayout
-                android:id="@+id/productimage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/name"
-                android:elevation="@dimen/_4dp"
-                android:visibility="visible">
-
-                <ImageView
-                    android:id="@+id/product_img"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:src="@drawable/product_placeholder" />
-
-            </FrameLayout>
-
-            <LinearLayout
-                android:id="@+id/rating"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/productimage"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingStart="@dimen/_16dp"
-                android:visibility="visible">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_16dp">
+
+                    <TextView
+                        android:id="@+id/tv_product_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="false"
+                        android:textColor="@color/blue_grey"
+                        android:textSize="@dimen/_20sp"
+                        android:textStyle="bold"
+                        tools:text="Ocado Organic Fairtrade Bananas"
+                        android:text="@{viewModel.productDetails.title}"/>
+
+                    <TextView
+                        android:id="@+id/tv_product_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2dp"
+                        android:singleLine="false"
+                        android:textColor="@color/blue_grey"
+                        android:textSize="@dimen/_13sp"
+                        tools:text="Organic. Suitable for vegetarians."
+                        android:text="@{viewModel.productDetails.description}"/>
+
+                    <TextView
+                        android:id="@+id/tv_product_allergy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2dp"
+                        android:singleLine="false"
+                        android:textColor="@color/blue_grey"
+                        android:textSize="@dimen/_13sp"
+                        tools:text="May contain traces of Sesame Seeds."
+                        android:textStyle="italic"
+                        android:text="@{viewModel.productDetails.allergyInformation}"/>
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/productimage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/image_frame_layout_height"
+                    android:layout_below="@id/name"
+                    android:elevation="@dimen/_4dp"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:id="@+id/product_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:src="@drawable/product_placeholder"
+                        app:bindImageWidth="@{ProductDetailsViewModel.IMAGE_WIDTH}"
+                        app:bindImageHeight="@{ProductDetailsViewModel.IMAGE_HEIGHT}"
+                        app:bindProductImageUrl="@{viewModel.productDetails.imageUrl}"/>
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:orientation="horizontal">
+                    android:layout_below="@+id/productimage"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/_16dp"
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -101,52 +113,81 @@
 
                     <TextView
                         android:id="@+id/tv_product_price_value"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
                         android:textColor="@color/blue_grey"
                         android:layout_marginStart="@dimen/_8dp"
                         tools:text="$25"
-                        tools:textSize="@dimen/_18sp" />
+                        tools:textSize="@dimen/_18sp"
+                        android:text="@{viewModel.productDetails.priceWithUnit}"/>
 
                 </LinearLayout>
 
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_price"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/size"
-                android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_16dp"
+                        android:text="@string/product_size"
+                        android:textColor="@color/blue_grey"
+                        android:textSize="@dimen/_18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_product_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_20dp"
+                        android:background="@color/trans_black"
+                        android:textColor="@color/blue_grey"
+                        android:textSize="@dimen/_18sp"
+                        tools:text="6 per pack"
+                        android:text="@{viewModel.productDetails.size}"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/iv_no_product_results"
+                android:layout_width="175dp"
+                android:layout_height="175dp"
+                app:srcCompat="@drawable/ic_search_glyph"
+                app:bindProductDetailsRequestStatusImage="@{viewModel.requestStatus}"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:id="@+id/tv_no_product_results"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/rating"
-                android:background="@color/white"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:text="@string/message_no_product_details"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:bindProductDetailsRequestStatusText="@{viewModel.requestStatus}"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"
+                />
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/_16dp"
-                    android:text="@string/product_size"
-                    android:textColor="@color/blue_grey"
-                    android:textSize="@dimen/_16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_product_size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_20dp"
-                    android:background="@color/trans_black"
-                    android:textColor="@color/blue_grey"
-                    android:textSize="@dimen/_20sp"
-                    tools:text="6 per pack" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-    </ScrollView>
-
-</RelativeLayout>
+    </RelativeLayout>
+</layout>
