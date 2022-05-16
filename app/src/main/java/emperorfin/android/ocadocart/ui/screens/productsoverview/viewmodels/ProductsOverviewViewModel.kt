@@ -5,9 +5,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import emperorfin.android.ocadocart.data.datasources.local.frameworks.room.AppRoomDatabase
+import emperorfin.android.ocadocart.domain.models.mappers.ProductOverviewModelMapper
 import emperorfin.android.ocadocart.ui.events.outputs.EventDataImpl
 import emperorfin.android.ocadocart.ui.screens.productsoverview.enums.ProductsOverviewRequestStatus
 import emperorfin.android.ocadocart.ui.uimodels.ProductOverviewUiModel
+import emperorfin.android.ocadocart.ui.uimodels.mappers.ProductOverviewUiModelMapper
 import emperorfin.android.ocadocart.ui.utils.ProductsOverviewsSampleDataGeneratorUtil
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -43,7 +46,9 @@ class ProductsOverviewViewModel(
     // DO NOT REMOVE.
     init{
         // Option 1 of 4 (SAMPLE DATA)
-        generateProductsOverviewsSampleData()
+//        generateProductsOverviewsSampleData()
+        // Option 2 of 4 (SAMPLE DATA)
+        getDatabaseProductsOverviewsSampleDataWithoutLocalDataSource()
     }
 
     fun openProductDetails(productOverview: ProductOverviewUiModel){
@@ -65,5 +70,25 @@ class ProductsOverviewViewModel(
         } else {
             _requestStatus.value = ProductsOverviewRequestStatus.DONE
         }
+    }
+
+    private fun getDatabaseProductsOverviewsSampleDataWithoutLocalDataSource() = viewModelScope.launch{
+        _requestStatus.value = ProductsOverviewRequestStatus.LOADING
+
+        val entityProductsOverviews = AppRoomDatabase.getInstance(applicationContext).mProductOverviewDao.getProductsOverviews()
+
+        val productOverviewModelMapper = ProductOverviewModelMapper()
+        val productOverviewUiModelMapper = ProductOverviewUiModelMapper()
+
+        _productsOverviews.value = entityProductsOverviews.map {
+            productOverviewModelMapper.transform(it)
+        }.map {
+            productOverviewUiModelMapper.transform(it)
+        }
+
+        if(_productsOverviews.value?.isEmpty() == true)
+            _requestStatus.value = ProductsOverviewRequestStatus.NO_DATA
+        else
+            _requestStatus.value = ProductsOverviewRequestStatus.DONE
     }
 }

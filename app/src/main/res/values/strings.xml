@@ -10,5 +10,12 @@
     <string name="loading">Loading…</string>
     <string name="products_overviews_results_error">Error displaying products overview results.</string>
     <string name="products_overviews_results_no_data">No products overview results to display.</string>
+    <string name="error_product_overview_data_unavailable">No product overview data available.</string>
+    <string name="error_inappropriate_argument_passed">The argument passed is inappropriate.</string>
+    <string name="error_products_overviews_unavailable">List of products overviews not available.</string>
+    <string name="error_not_yet_implemented">Not yet implemented.</string>
+    <string name="error_cant_save_empty_list">An empty list cannot be saved.</string>
+    <string name="error_all_products_overviews_not_saved">All the products overviews were not saved.</string>
+    <string name="error_deleting_all_products_overviews">Error deleting all products overviews.</string>
 
 </resources>
