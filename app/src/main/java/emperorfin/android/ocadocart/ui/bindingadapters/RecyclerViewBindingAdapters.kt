@@ -25,5 +25,6 @@ fun setProductsOverviews(recyclerView: RecyclerView, productsOverviews: List<Pro
         recyclerView.visibility = View.VISIBLE
 
     val productsOverviewsAdapter = recyclerView.adapter as ProductOverviewUiModelRecyclerviewAdapter
-    productsOverviewsAdapter.submitList(productsOverviews)
+//    productsOverviewsAdapter.submitList(productsOverviews)
+    productsOverviewsAdapter.addHeaderAndSubmitList(productsOverviews)
 }
