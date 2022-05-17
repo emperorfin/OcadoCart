@@ -64,7 +64,7 @@ abstract class AppRoomDatabase : RoomDatabase() {
                                 coroutineScope.launch {
                                     // This is now commented out since real productOverview data are being cached
                                     // to the database.
-                                    populateInitialProductsOverviewsSampleDataUsingSqliteDatabaseWithCoroutineThread(db, ProductsOverviewsSampleDataGeneratorUtil.getProductOverviewEntityList())
+                                    //populateInitialProductsOverviewsSampleDataUsingSqliteDatabaseWithCoroutineThread(db, ProductsOverviewsSampleDataGeneratorUtil.getProductOverviewEntityList())
                                 }
                             }
 

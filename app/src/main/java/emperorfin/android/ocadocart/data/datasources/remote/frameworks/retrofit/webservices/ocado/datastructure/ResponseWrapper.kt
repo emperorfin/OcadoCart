@@ -8,5 +8,5 @@ package emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit
 
 
 data class ResponseWrapper(
-    val clusters: List<ItemsCluster>
+    val clusters: List<ItemsCluster>?,
 )

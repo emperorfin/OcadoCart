@@ -9,8 +9,8 @@ package emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit
 
 data class Item(
     val id: Int,
+    val price: String,
     val title: String,
     val size: String,
-    val price: String,
     val imageUrl: String
 )

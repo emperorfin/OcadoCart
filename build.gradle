@@ -4,6 +4,8 @@ buildscript {
     ext.version_navigation = "2.3.5"
     ext.version_glide = "4.4.0"
     ext.version_room = "2.3.0"
+    ext.version_retrofit = "2.9.0"
+
     repositories {
         google()
 //        jcenter()

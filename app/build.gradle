@@ -18,6 +18,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "OCADO_BASE_URL", "\"https://my-json-server.typicode.com/ocadotechnology/mobile-challenge/\""
     }
 
     buildTypes {
@@ -64,4 +66,8 @@ dependencies {
     implementation "androidx.room:room-runtime:$version_room"
     implementation "androidx.room:room-ktx:$version_room"
     kapt "androidx.room:room-compiler:$version_room"
+
+    // Retrofit ------------------------------------------------------------------------------------
+    implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
+    implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
 }

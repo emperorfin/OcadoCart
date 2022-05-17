@@ -17,5 +17,6 @@
     <string name="error_cant_save_empty_list">An empty list cannot be saved.</string>
     <string name="error_all_products_overviews_not_saved">All the products overviews were not saved.</string>
     <string name="error_deleting_all_products_overviews">Error deleting all products overviews.</string>
+    <string name="error_unsuccesful_products_overviews_request">\"Unsuccessful request for products overviews: \"</string>
 
 </resources>

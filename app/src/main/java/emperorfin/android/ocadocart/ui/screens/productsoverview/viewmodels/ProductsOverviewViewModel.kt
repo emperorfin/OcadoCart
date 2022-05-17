@@ -7,8 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import emperorfin.android.ocadocart.data.datasources.local.frameworks.room.AppRoomDatabase
 import emperorfin.android.ocadocart.data.datasources.local.frameworks.room.entitysources.ProductOverviewLocalDataSourceRoom
+import emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit.modelsources.ProductOverviewRemoteDataSourceRetrofit
+import emperorfin.android.ocadocart.domain.exceptions.ProductOverviewFailure
 import emperorfin.android.ocadocart.domain.exceptions.ProductOverviewFailure.LocalProductOverviewError
 import emperorfin.android.ocadocart.domain.exceptions.ProductOverviewFailure.ListNotAvailableLocalProductOverviewError
+import emperorfin.android.ocadocart.domain.exceptions.ProductOverviewFailure.RemoteProductOverviewError
+import emperorfin.android.ocadocart.domain.exceptions.ProductOverviewFailure.ListNotAvailableRemoteProductOverviewError
 import emperorfin.android.ocadocart.domain.models.ProductOverviewModel
 import emperorfin.android.ocadocart.domain.models.mappers.ProductOverviewModelMapper
 import emperorfin.android.ocadocart.ui.events.outputs.EventDataImpl
@@ -54,12 +58,14 @@ class ProductsOverviewViewModel(
 
     // DO NOT REMOVE.
     init{
-        // Option 1 of 4 (SAMPLE DATA)
+        // Option 1 of 5 (SAMPLE DATA)
 //        generateProductsOverviewsSampleData()
-        // Option 2 of 4 (SAMPLE DATA)
+        // Option 2 of 5 (SAMPLE DATA)
 //        getDatabaseProductsOverviewsSampleDataWithoutLocalDataSource()
-        // Option 3 of 4 (SAMPLE DATA)
-        getDatabaseProductsOverviewsSampleDataViaLocalDataSource()
+        // Option 3 of 5 (SAMPLE DATA)
+//        getDatabaseProductsOverviewsSampleDataViaLocalDataSource()
+        // Option 4 of 5 (REAL DATA)
+        getProductsOverviewsRealDataViaRemoteDataSource()
     }
 
     fun openProductDetails(productOverview: ProductOverviewUiModel){
@@ -117,6 +123,31 @@ class ProductsOverviewViewModel(
 
         if (resultData is Error && (resultData.failure is LocalProductOverviewError ||
                     resultData.failure is ListNotAvailableLocalProductOverviewError)){
+            _requestStatus.value = ProductsOverviewRequestStatus.NO_DATA
+        }else if (resultData.succeeded){
+            val modelProductsOverviews = (resultData as Success).data
+
+            val productOverviewUiModelMapper = ProductOverviewUiModelMapper()
+
+            _productsOverviews.value = modelProductsOverviews.map {
+                productOverviewUiModelMapper.transform(it)
+            }
+
+            _requestStatus.value = ProductsOverviewRequestStatus.DONE
+        }
+    }
+
+    private fun getProductsOverviewsRealDataViaRemoteDataSource() = viewModelScope.launch{
+        _requestStatus.value = ProductsOverviewRequestStatus.LOADING
+
+        val remoteDataSourceRoom = ProductOverviewRemoteDataSourceRetrofit(applicationContext)
+
+        val params = None()
+        val resultData: ResultData<List<ProductOverviewModel>> =
+            remoteDataSourceRoom.getProductsOverviews(params)
+
+        if (resultData is Error && (resultData.failure is RemoteProductOverviewError ||
+                    resultData.failure is ListNotAvailableRemoteProductOverviewError)){
             _requestStatus.value = ProductsOverviewRequestStatus.NO_DATA
         }else if (resultData.succeeded){
             val modelProductsOverviews = (resultData as Success).data
