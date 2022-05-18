@@ -1,11 +1,13 @@
 package emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit.webservices.ocado.service
 
 import emperorfin.android.ocadocart.BuildConfig
+import emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit.webservices.ocado.endpoints.product.id.ProductDetail
 import emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit.webservices.ocado.endpoints.products.ResponseWrapper
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 
 /**
@@ -29,5 +31,8 @@ interface OcadoService {
 
     @GET("products")
     suspend fun getProductsOverviews(): Response<ResponseWrapper>
+
+    @GET("product/{product_id}")
+    suspend fun getProductDetails(@Path("product_id") productId: Int): Response<ProductDetail>
 
 }

@@ -5,10 +5,17 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit.modelsources.ProductDetailsRemoteDataSourceRetrofit
+import emperorfin.android.ocadocart.domain.models.ProductDetailsModel
+import emperorfin.android.ocadocart.domain.models.ProductOverviewModel
+import emperorfin.android.ocadocart.domain.uilayer.events.outputs.ResultData
+import emperorfin.android.ocadocart.domain.uilayer.events.outputs.succeeded
+import emperorfin.android.ocadocart.ui.events.inputs.productdetails.ProductDetailsParams
 import emperorfin.android.ocadocart.ui.events.outputs.EventDataImpl
 import emperorfin.android.ocadocart.ui.screens.productsoverview.enums.ProductDetailsRequestStatus
 import emperorfin.android.ocadocart.ui.uimodels.ProductDetailsUiModel
 import emperorfin.android.ocadocart.ui.uimodels.ProductOverviewUiModel
+import emperorfin.android.ocadocart.ui.uimodels.mappers.ProductDetailsUiModelMapper
 import emperorfin.android.ocadocart.ui.utils.ProductsDetailsSampleDataGeneratorUtil
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -30,6 +37,8 @@ class ProductDetailsViewModel(
         const val IMAGE_HEIGHT: Int = 3900
     }
 
+    private val applicationContext = getApplication<Application>()
+
     // The internal MutableLiveData for the product details.
     private val _productDetails = MutableLiveData<ProductDetailsUiModel>()
 
@@ -44,7 +53,52 @@ class ProductDetailsViewModel(
     // DO NOT REMOVE.
     init {
         // Option 1 of 4 (SAMPLE DATA)
-        generateProductDetailsSampleData(selectedProductOverview)
+//        generateProductDetailsSampleData(selectedProductOverview)
+        // Option 2 of 4 (REAL DATA)
+        getProductDetailsRealDataViaRemoteDataSource(selectedProductOverview)
+    }
+
+    private fun getProductDetailsRealDataViaRemoteDataSource(
+        selectedProductOverview: ProductOverviewUiModel
+    ) = viewModelScope.launch {
+        _requestStatus.value = ProductDetailsRequestStatus.LOADING
+
+        val remoteDataSourceRoom = ProductDetailsRemoteDataSourceRetrofit(applicationContext)
+
+        val selectedProductId: Int = selectedProductOverview.id
+        val selectedProductSize: String = selectedProductOverview.size
+        val selectedProductTag: String = selectedProductOverview.tag
+
+        val productDetailsParams = ProductDetailsParams(selectedProductId)
+
+        val resultData: ResultData<ProductDetailsModel> =
+            remoteDataSourceRoom.getProductDetails(productDetailsParams)
+
+        if (resultData is ResultData.Error){
+            _requestStatus.value = ProductDetailsRequestStatus.ERROR
+        } else if (resultData.succeeded){
+            val modelProductDetails = (resultData as ResultData.Success).data
+
+            val productDetailsUiModelMapper = ProductDetailsUiModelMapper()
+
+            val productDetails: ProductDetailsUiModel =
+                productDetailsUiModelMapper.transform(modelProductDetails)
+
+            val productDetailsNew = ProductDetailsUiModel(
+                id = productDetails.id,
+                title = productDetails.title,
+                price = productDetails.price,
+                imageUrl = productDetails.imageUrl,
+                description = productDetails.description,
+                allergyInformation = productDetails.allergyInformation,
+                size = selectedProductSize,
+                tag = selectedProductTag
+            )
+
+            _productDetails.value = productDetailsNew
+
+            _requestStatus.value = ProductDetailsRequestStatus.DONE
+        }
     }
 
     private fun generateProductDetailsSampleData(selectedProductOverview: ProductOverviewUiModel) = viewModelScope.launch {
