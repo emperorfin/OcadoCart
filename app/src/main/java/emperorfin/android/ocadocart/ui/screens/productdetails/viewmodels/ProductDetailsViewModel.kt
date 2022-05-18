@@ -17,6 +17,7 @@ import emperorfin.android.ocadocart.ui.uimodels.ProductDetailsUiModel
 import emperorfin.android.ocadocart.ui.uimodels.ProductOverviewUiModel
 import emperorfin.android.ocadocart.ui.uimodels.mappers.ProductDetailsUiModelMapper
 import emperorfin.android.ocadocart.ui.utils.ProductsDetailsSampleDataGeneratorUtil
+import emperorfin.android.ocadocart.ui.utils.InternetConnectivityUtil.hasInternetConnection
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -35,6 +36,8 @@ class ProductDetailsViewModel(
     companion object{
         const val IMAGE_WIDTH: Int = 1000
         const val IMAGE_HEIGHT: Int = 3900
+
+        const val ERROR_CODE_NO_INTERNET_CONNECTION = "ERROR_CODE_NO_INTERNET_CONNECTION"
     }
 
     private val applicationContext = getApplication<Application>()
@@ -50,6 +53,10 @@ class ProductDetailsViewModel(
     val requestStatus: LiveData<ProductDetailsRequestStatus>
         get() = _requestStatus
 
+    private val _noInternetConnectionError = MutableLiveData<String>()
+    val noInternetConnectionError: LiveData<String>
+        get() = _noInternetConnectionError
+
     // DO NOT REMOVE.
     init {
         // Option 1 of 4 (SAMPLE DATA)
@@ -58,10 +65,22 @@ class ProductDetailsViewModel(
         getProductDetailsRealDataViaRemoteDataSource(selectedProductOverview)
     }
 
-    private fun getProductDetailsRealDataViaRemoteDataSource(
+    fun emitNoInternetConnectionError(value: String?){
+        _noInternetConnectionError.postValue(value)
+    }
+
+    fun getProductDetailsRealDataViaRemoteDataSource(
         selectedProductOverview: ProductOverviewUiModel
     ) = viewModelScope.launch {
         _requestStatus.value = ProductDetailsRequestStatus.LOADING
+
+        if (!hasInternetConnection(applicationContext)){
+            _noInternetConnectionError.postValue(ERROR_CODE_NO_INTERNET_CONNECTION)
+
+            _requestStatus.value = ProductDetailsRequestStatus.ERROR
+
+            return@launch
+        }
 
         val remoteDataSourceRoom = ProductDetailsRemoteDataSourceRetrofit(applicationContext)
 
