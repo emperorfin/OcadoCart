@@ -13,4 +13,6 @@
     <color name="blue_grey">#455A64</color>
     <color name="red">#F44336</color>
     <color name="trans_black">#00000000</color>
+    <color name="background_dark">#323232</color>
+    <color name="errorBackground">@color/background_dark</color>
 </resources>

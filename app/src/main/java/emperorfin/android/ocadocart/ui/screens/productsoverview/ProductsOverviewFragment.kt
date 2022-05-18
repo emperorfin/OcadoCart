@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import emperorfin.android.ocadocart.R
 import emperorfin.android.ocadocart.databinding.FragmentProductsOverviewBinding
 import emperorfin.android.ocadocart.ui.events.outputs.EventDataImpl
@@ -17,6 +18,8 @@ import emperorfin.android.ocadocart.ui.screens.productsoverview.adapters.Product
 import emperorfin.android.ocadocart.ui.screens.productsoverview.viewmodels.ProductsOverviewViewModel
 import emperorfin.android.ocadocart.ui.screens.productsoverview.viewmodels.ProductsOverviewViewModelFactory
 import emperorfin.android.ocadocart.ui.uimodels.ProductOverviewUiModel
+import emperorfin.android.ocadocart.ui.utils.ErrorUtil
+import androidx.lifecycle.Observer
 import java.util.*
 
 /**
@@ -25,6 +28,8 @@ import java.util.*
 class ProductsOverviewFragment : Fragment() {
 
     private lateinit var mViewModel: ProductsOverviewViewModel
+
+    private var mSnackBar: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,12 +49,19 @@ class ProductsOverviewFragment : Fragment() {
 
         mViewModel = getProductsOverviewViewModel(application)
 
-        //TODO:
-        // Doesn't request for either remote or local venues since they would be available after
-        // configuration changes (screen rotation in this case).
-//        if (mViewModel.isFirstRun)
-//            mViewModel.loadProductsOverviews(...)
-//        mViewModel.isFirstRun = false
+        mViewModel.noInternetConnectionError.observe(viewLifecycleOwner, Observer {
+            if (it != null && it == ProductsOverviewViewModel.ERROR_CODE_NO_INTERNET_CONNECTION){
+                mSnackBar = ErrorUtil.showError(
+                    binding.rootLayout,
+                    R.string.message_no_internet_connection,
+                    R.string.message_try_again,
+                    View.OnClickListener {
+                        mViewModel.loadProductsOverviews()
+                    })
+            }
+
+            mViewModel.emitNoInternetConnectionError(null)
+        })
 
         binding.lifecycleOwner = this
         binding.viewModel = mViewModel
@@ -67,6 +79,18 @@ class ProductsOverviewFragment : Fragment() {
         setupNavigation()
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        dismissSnackBar()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+
+        dismissSnackBar()
     }
 
     private fun getProductsOverviewViewModel(application: Application): ProductsOverviewViewModel{
@@ -96,6 +120,16 @@ class ProductsOverviewFragment : Fragment() {
 
         this.findNavController().navigate(action)
 
+    }
+
+    /**
+     * Dismisses any SnackBar error message that is showing.
+     */
+    private fun dismissSnackBar() {
+        mSnackBar?.let {
+            it.dismiss()
+            mSnackBar = null
+        }
     }
 
     private fun showToastMessage(message: String) =

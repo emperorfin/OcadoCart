@@ -18,5 +18,8 @@
     <string name="error_all_products_overviews_not_saved">All the products overviews were not saved.</string>
     <string name="error_deleting_all_products_overviews">Error deleting all products overviews.</string>
     <string name="error_unsuccesful_products_overviews_request">\"Unsuccessful request for products overviews: \"</string>
+    <string name="message_no_internet_loading_cached_data">No internet connection. Loading saved products overviews…</string>
+    <string name="message_no_internet_connection">No internet connection.</string>
+    <string name="message_try_again">Try again</string>
 
 </resources>
