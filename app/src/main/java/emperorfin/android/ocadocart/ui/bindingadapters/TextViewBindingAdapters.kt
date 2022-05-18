@@ -25,7 +25,7 @@ fun setProductsOverviewsRequestStatusText(textView: TextView, requestStatus: Pro
             }
             ProductsOverviewRequestStatus.ERROR -> {
                 textView.visibility = View.VISIBLE
-                textView.text = textView.context.getString(R.string.products_overviews_results_error)
+                textView.text = textView.context.getString(R.string.error_products_overviews_results)
             }
             ProductsOverviewRequestStatus.NO_DATA -> {
                 textView.visibility = View.VISIBLE
@@ -48,7 +48,7 @@ fun setProductDetailsRequestStatusText(textView: TextView, requestStatus: Produc
             }
             ProductDetailsRequestStatus.ERROR -> {
                 textView.visibility = View.VISIBLE
-                textView.text = textView.context.getString(R.string.products_overviews_results_error)
+                textView.text = textView.context.getString(R.string.error_product_details)
             }
             ProductDetailsRequestStatus.NO_DATA -> {
                 textView.visibility = View.VISIBLE

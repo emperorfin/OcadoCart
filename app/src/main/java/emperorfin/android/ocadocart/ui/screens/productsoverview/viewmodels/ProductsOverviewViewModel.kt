@@ -250,6 +250,8 @@ class ProductsOverviewViewModel(
                     )
                 } else {
                     _noInternetConnectionError.postValue(ERROR_CODE_NO_INTERNET_CONNECTION)
+
+                    _requestStatus.value = ProductsOverviewRequestStatus.ERROR
                 }
             }
         }
