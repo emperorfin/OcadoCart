@@ -1,4 +1,4 @@
-package emperorfin.android.ocadocart.ui.screens.productsoverview.enums
+package emperorfin.android.ocadocart.ui.screens.productdetails.enums
 
 
 /**

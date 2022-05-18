@@ -7,12 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit.modelsources.ProductDetailsRemoteDataSourceRetrofit
 import emperorfin.android.ocadocart.domain.models.ProductDetailsModel
-import emperorfin.android.ocadocart.domain.models.ProductOverviewModel
 import emperorfin.android.ocadocart.domain.uilayer.events.outputs.ResultData
 import emperorfin.android.ocadocart.domain.uilayer.events.outputs.succeeded
 import emperorfin.android.ocadocart.ui.events.inputs.productdetails.ProductDetailsParams
-import emperorfin.android.ocadocart.ui.events.outputs.EventDataImpl
-import emperorfin.android.ocadocart.ui.screens.productsoverview.enums.ProductDetailsRequestStatus
+import emperorfin.android.ocadocart.ui.screens.productdetails.enums.ProductDetailsRequestStatus
 import emperorfin.android.ocadocart.ui.uimodels.ProductDetailsUiModel
 import emperorfin.android.ocadocart.ui.uimodels.ProductOverviewUiModel
 import emperorfin.android.ocadocart.ui.uimodels.mappers.ProductDetailsUiModelMapper

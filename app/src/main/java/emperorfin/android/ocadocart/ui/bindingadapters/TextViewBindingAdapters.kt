@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import emperorfin.android.ocadocart.R
-import emperorfin.android.ocadocart.ui.screens.productsoverview.enums.ProductDetailsRequestStatus
+import emperorfin.android.ocadocart.ui.screens.productdetails.enums.ProductDetailsRequestStatus
 import emperorfin.android.ocadocart.ui.screens.productsoverview.enums.ProductsOverviewRequestStatus
 
 

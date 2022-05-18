@@ -3,7 +3,7 @@ package emperorfin.android.ocadocart.ui.bindingadapters
 import android.view.View
 import android.widget.ScrollView
 import androidx.databinding.BindingAdapter
-import emperorfin.android.ocadocart.ui.screens.productsoverview.enums.ProductDetailsRequestStatus
+import emperorfin.android.ocadocart.ui.screens.productdetails.enums.ProductDetailsRequestStatus
 
 
 /**

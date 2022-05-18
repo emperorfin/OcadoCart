@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.request.RequestOptions
 import emperorfin.android.ocadocart.R
-import emperorfin.android.ocadocart.ui.screens.productsoverview.enums.ProductDetailsRequestStatus
+import emperorfin.android.ocadocart.ui.screens.productdetails.enums.ProductDetailsRequestStatus
 import emperorfin.android.ocadocart.ui.screens.productsoverview.enums.ProductsOverviewRequestStatus
 
 
