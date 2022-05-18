@@ -1,4 +1,4 @@
-package emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit.webservices.ocado.datastructure
+package emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit.webservices.ocado.endpoints.products
 
 
 /**

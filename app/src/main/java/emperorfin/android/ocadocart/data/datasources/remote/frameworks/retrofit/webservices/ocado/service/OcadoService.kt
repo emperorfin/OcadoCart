@@ -1,8 +1,7 @@
 package emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit.webservices.ocado.service
 
 import emperorfin.android.ocadocart.BuildConfig
-import emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit.webservices.ocado.datastructure.ResponseWrapper
-import retrofit2.Call
+import emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit.webservices.ocado.endpoints.products.ResponseWrapper
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory

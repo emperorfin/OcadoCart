@@ -3,7 +3,7 @@ package emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit
 import android.content.Context
 import emperorfin.android.ocadocart.R
 import emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit.models.productoverview.ProductOverviewDataTransferObject
-import emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit.webservices.ocado.datastructure.ItemsCluster
+import emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit.webservices.ocado.endpoints.products.ItemsCluster
 import emperorfin.android.ocadocart.data.datasources.remote.frameworks.retrofit.webservices.ocado.service.OcadoService
 import emperorfin.android.ocadocart.domain.datalayer.datasources.ProductOverviewDataSource
 import emperorfin.android.ocadocart.domain.models.ProductOverviewModel
@@ -13,10 +13,7 @@ import emperorfin.android.ocadocart.ui.events.inputs.productoverview.ProductOver
 import emperorfin.android.ocadocart.domain.uilayer.events.outputs.ResultData
 import emperorfin.android.ocadocart.domain.uilayer.events.outputs.ResultData.Success
 import emperorfin.android.ocadocart.domain.uilayer.events.outputs.ResultData.Error
-import emperorfin.android.ocadocart.domain.exceptions.ProductOverviewFailure.NonExistentDataRemoteProductOverviewError
 import emperorfin.android.ocadocart.domain.exceptions.ProductOverviewFailure.ListNotAvailableRemoteProductOverviewError
-import emperorfin.android.ocadocart.domain.exceptions.ProductOverviewFailure.RemoteInsertProductOverviewError
-import emperorfin.android.ocadocart.domain.exceptions.ProductOverviewFailure.RemoteDeleteProductOverviewError
 import emperorfin.android.ocadocart.domain.exceptions.ProductOverviewFailure.RemoteProductOverviewError
 import emperorfin.android.ocadocart.ui.events.inputs.productoverview.None
 import kotlinx.coroutines.CoroutineDispatcher
