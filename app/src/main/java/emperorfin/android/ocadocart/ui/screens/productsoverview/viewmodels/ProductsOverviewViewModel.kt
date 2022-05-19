@@ -52,8 +52,6 @@ class ProductsOverviewViewModel(
 
     private val applicationContext = getApplication<Application>()
 
-    var isFirstRun = true
-
     private val _requestStatus = MutableLiveData<ProductsOverviewRequestStatus>()
     val requestStatus: LiveData<ProductsOverviewRequestStatus>
         get() = _requestStatus

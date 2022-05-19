@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentMap
 
 
 class ProductsOverviewRepositoryImpl(
-    private val productOverviewLocalDataSource: ProductOverviewDataSource,
+    val productOverviewLocalDataSource: ProductOverviewDataSource,
     private val productOverviewRemoteDataSource: ProductOverviewDataSource,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ProductsOverviewRepository {
