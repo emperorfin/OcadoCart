@@ -7,13 +7,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 28 // 30 // 31
+    compileSdkVersion 30 // 28 // 31
 //    buildToolsVersion "31.0.0"
 
     defaultConfig {
         applicationId "emperorfin.android.ocadocart"
         minSdkVersion 21
-        targetSdkVersion 28 // 30 // 31
+        targetSdkVersion 30 // 28 // 31
         versionCode 1
         versionName "1.0"
 
@@ -39,6 +39,16 @@ android {
     buildFeatures{
         dataBinding true
     }
+
+    // Always show the result of every unit test when running via command line, even if it passes.
+    testOptions.unitTests {
+        includeAndroidResources = true
+    }
+
+    packagingOptions {
+        exclude 'META-INF/AL2.0'
+        exclude 'META-INF/LGPL2.1'
+    }
 }
 
 dependencies {
@@ -51,9 +61,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    //testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+//    testImplementation 'junit:junit:4.+'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // Navigation Components -----------------------------------------------------------------------
     implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
@@ -71,7 +81,8 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
     implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
 
-    testImplementation "junit:junit:4.13.2"
+    // Dependencies for local unit tests ===========================================================
+    testImplementation "junit:junit:$version_junit"
     // Hamcrest ------------------------------------------------------------------------------------
     testImplementation "org.hamcrest:hamcrest-all:$version_hamcrest"
     // AndroidX Test - JVM Testing -----------------------------------------------------------------
@@ -83,4 +94,20 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$version_arch_testing"
     // Kotlinx Coroutines Test ---------------------------------------------------------------------
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines"
+
+    // Dependencies for Android instrumented unit tests ============================================
+    androidTestImplementation "junit:junit:$version_junit"
+    androidTestImplementation "org.mockito:mockito-core:$version_mockito"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$version_dex_maker"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines"
+
+    // Testing code should not be included in the main code.
+    // Once https://issuetracker.google.com/128612536 is fixed this can be fixed.
+    debugImplementation "androidx.fragment:fragment-testing:$version_fragment_testing"
+    implementation "androidx.test:core:$version_androidx_test_core"
+
+    // AndroidX Test - Instrumented testing ========================================================
+    androidTestImplementation "androidx.test.ext:junit:$version_androidx_test_ext_kotlin_runner"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$version_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$version_espresso"
 }
