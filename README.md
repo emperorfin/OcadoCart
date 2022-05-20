@@ -44,7 +44,7 @@ internet connectivity.
 ## Demo
 
 * [App demo video](https://bit.ly/3LsaVxk)
-* [App APK]()
+* [App APK](https://bit.ly/3sLoBwN)
 
 ## Project Tech-stack and Characteristics
 
