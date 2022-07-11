@@ -1,8 +1,9 @@
 # Ocado Cart
 
 Ocado Cart is a native Android app project that uses [Ocado's mocked webservice REST API] (https://my-json-server.typicode.com/ocadotechnology/mobile-challenge)
-to display list of products on one screen. The list displays a header with the cluster name as well
-as the products it contains. The list displays title, image, size, and price of each product.
+to display list of products on one screen and a product details on another screen. The list displays
+a header with the cluster name as well as the products it contains. The list displays title, image,
+size, and price of each product.
 
 When a user clicks on a given product of the list, the user will be redirected to another screen with
 more specific details about the clicked product.
