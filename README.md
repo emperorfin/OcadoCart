@@ -78,6 +78,7 @@ internet connectivity.
 
  - [ ] Dependency Injection (Dagger2, Hilt)
  - [ ] Modularization
+ - [ ] CI/CD
  - [ ] More...
 
 ## Architecture
