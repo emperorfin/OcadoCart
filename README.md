@@ -1,6 +1,6 @@
 # Ocado Cart
 
-Ocado Cart is a native Android app project that uses [Ocado's mocked webservice REST API] (https://my-json-server.typicode.com/ocadotechnology/mobile-challenge)
+Ocado Cart is a native Android app project that uses [Ocado's mocked webservice REST API](https://my-json-server.typicode.com/ocadotechnology/mobile-challenge)
 to display list of products on one screen and a product details on another screen. The list displays
 a header with the cluster name as well as the products it contains. The list displays title, image,
 size, and price of each product.
@@ -60,7 +60,7 @@ internet connectivity.
 * Moshi
 * Coroutines
 * ViewModel
-* [Ocado's mocked webservice REST API] (https://my-json-server.typicode.com/ocadotechnology/mobile-challenge)
+* [Ocado's mocked webservice REST API](https://my-json-server.typicode.com/ocadotechnology/mobile-challenge)
 * Glide
 * Data Binding (very strict)
 * Binding Adapters
